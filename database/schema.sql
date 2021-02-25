@@ -1,9 +1,3 @@
--- #!/bin/bash -e
-
--- test -f .env && source .env
--- psql $DATABASE_URL -f database/schema.sql -f database/data.sql
-
-
 set client_min_messages to warning;
 
 -- DANGER: this is NOT how to do it in the real world.
