@@ -4,6 +4,8 @@ set client_min_messages to warning;
 -- `drop schema` INSTANTLY ERASES EVERYTHING.
 drop schema "public" cascade;
 
+create schema "public";
+
 CREATE TABLE "products" (
 	"productId" serial NOT NULL,
 	"name" VARCHAR(255) NOT NULL,
