@@ -29,4 +29,3 @@ values ('HypoJhuice 18W 15000mAh Battery Pack','49.99','Black','USB-C battery pa
 ('HypoJhuice 18W 15000mAh Battery Pack','49.99','Black','USB-C battery pack for iPhone with integrated 18W Lightning to USB-C cable.','Images/product1.jpg'),
 ('HypoJhuice 18W 15000mAh Battery Pack','49.99','Black','USB-C battery pack for iPhone with integrated 18W Lightning to USB-C cable.','Images/product1.jpg'),
 ('HypoJhuice 18W 15000mAh Battery Pack','49.99','Black','USB-C battery pack for iPhone with integrated 18W Lightning to USB-C cable.','Images/product1.jpg'),
-('HypoJhuice 18W 15000mAh Battery Pack','49.99','Black','USB-C battery pack for iPhone with integrated 18W Lightning to USB-C cable.','Images/product1.jpg')
