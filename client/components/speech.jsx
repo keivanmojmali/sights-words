@@ -1,29 +1,23 @@
 import React from 'react';
 
-export default class Speech extends React.Component {
+export default class Speech extends React.Component{
   constructor(props){
-    super(props)
-    this.state = {
-      currentWord: ''
+    super(props);
+    this.dictate = this.dictate.bind(this);
+    this.microphone = document.querySelector('#microphone');
+    window.SpeechRecognition = webkitSpeechRecognition || window.SpeechRecognition;
+    this.recognition = new SpeechRecognition();
+    recognition.interimResults = true;
+  }
+  dictate(){
+    recognition.start();
+    recognition.onresult = (event) => {
+      console.log(event)
     }
   }
-}
-
-
-const $microphone = document.querySelector('#microphone');
-const window.SpeechRecognition = webkitSpeechRecognition || window.SpeechRecognition;
-const recognition = new SpeechRecognition();
-recognition.interimResults = true;
-
-$microphone.addEventListener('click', () => {
-  //Add sound play here
-  dictate()
-
-})
-
-const dictate = () => {
-  recognition.start();
-  recognition.onresult = (event) => {
-    console.log(event)
+  render(){
+    return(
+      <div>YES</div>
+    )
   }
 }

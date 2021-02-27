@@ -1,4 +1,5 @@
 import React from 'react';
+import Speech from '../components/speech'
 
 export default class SpeechFlashCards extends React.Component{
   constructor(props){
@@ -8,6 +9,13 @@ export default class SpeechFlashCards extends React.Component{
       currentWord: '',
     }
   };
+  componentDidMount(){
+    microphone.addEventListener('click', () => {
+      //Add sound play here
+      Speech.dictate()
+
+    })
+  }
   render(){
     return(
       <div className="col">
