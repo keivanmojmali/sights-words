@@ -23,7 +23,7 @@ export default class SpeechFlashCards extends React.Component{
         </div>
         <div className="row">
           <div className="col">
-
+            <i className='fas fa-microphone' id='microphone'></i>
           </div>
         </div>
       </div>
