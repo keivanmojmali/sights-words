@@ -21,6 +21,9 @@ export default class SpeechFlashCards extends React.Component{
             </div>
           </div>
         </div>
+        <div className="row">
+
+        </div>
       </div>
     )
   }
