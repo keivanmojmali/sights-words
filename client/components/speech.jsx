@@ -5,7 +5,7 @@ export default class Speech extends React.Component{
     super(props);
     this.dictate = this.dictate.bind(this);
     this.microphone = document.querySelector('#microphone');
-    window.SpeechRecognition = webkitSpeechRecognition || window.SpeechRecognition;
+    // this.window.SpeechRecognition = webkitSpeechRecognition || window.SpeechRecognition;
     this.recognition = new SpeechRecognition();
     recognition.interimResults = true;
   }
