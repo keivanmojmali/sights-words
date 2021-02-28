@@ -33,7 +33,7 @@ export default class SpeechFlashCards extends React.Component{
   }
   checkWord(speechToText) {
     if (speechToText === this.state.currentWord) {
-      console.log('yes!')
+      console.log('yes!') //need to add effects here
     } else {
       console.log('no!')
     }
