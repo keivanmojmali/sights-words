@@ -41,7 +41,7 @@ export default class SpeechFlashCards extends React.Component{
   render(){
       return (
         <div className="col">
-          <div className="row">
+          <div className="row mt-4">
             <div className="col">
               <div className="row bg-dark text-light flex-column justify-content-center text-center">
                 <h3>These Are Sight Words</h3>
@@ -51,17 +51,14 @@ export default class SpeechFlashCards extends React.Component{
               </div>
             </div>
           </div>
-          <div className="row">
+          <div className="row mt-4">
             <div className="col">
-              <div className="row">
-                <div className="col">
-                  <h1 id='currentWord'>The</h1>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col">
-                  <i className='fas fa-microphone' id='microphone'></i>
-                </div>
+              <div className="card">
+                  <div className="card-body d-flex flex-column align-items-center">
+                    <h5 className="card-title text-center display-2">The</h5>
+                    <p className="card-text text-center">Press the microphone button below and speak the word above.</p>
+                  <button className='fas fa-microphone' id='microphone'></button>
+                  </div>
               </div>
             </div>
           </div>
