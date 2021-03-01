@@ -37,7 +37,7 @@ module.exports = {
     watchContentBase: true,
     stats: 'minimal',
     proxy: {
-      '/api': `http://localhost:${process.env.PORT}`
+      '/store': `http://localhost:${process.env.PORT}`
     }
   },
   performance: {
