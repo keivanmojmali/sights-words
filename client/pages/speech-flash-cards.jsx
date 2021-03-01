@@ -20,7 +20,7 @@ export default class SpeechFlashCards extends React.Component{
 
     fetch('/store/getWords')
     .then(result=>result.json())
-    .then(data=>this.setState({data}))
+    .then(data=>this.setState({words:data}))
     .catch(err=>console.error(err))
 
     microphone.addEventListener('click', () => {
