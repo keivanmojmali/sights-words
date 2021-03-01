@@ -18,7 +18,20 @@ app.use(jsonMiddleware, staticMiddleware);
 
 
 
-
+app.get('/store/getWords',(req,res,next)=>{
+  const sql = `
+  select *
+  from "sightWords"
+  `;
+  db.query(sql)
+  .then(result=>{
+    res.status(201).json(result.rows)
+  })
+  .catch(err=>{
+    console.error(err)
+    next(err)
+  })
+})
 
 
 

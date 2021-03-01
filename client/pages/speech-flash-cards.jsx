@@ -17,6 +17,12 @@ export default class SpeechFlashCards extends React.Component{
     this.recognition.interimResults = true;
   }
   componentDidMount(){
+
+    fetch('/store/getWords')
+    .then(result=>result.json())
+    .then(data=>this.setState({data}))
+    .catch(err=>console.error(err))
+
     microphone.addEventListener('click', () => {
       //Add sound play here
       this.dictate();
@@ -71,6 +77,7 @@ export default class SpeechFlashCards extends React.Component{
     )
   }
   render(){
+    console.log(this.state)
       return (
         <div className="col">
           <div className="row mt-4">
