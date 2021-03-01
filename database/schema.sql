@@ -5,20 +5,6 @@ set client_min_messages to warning;
 drop schema "public" cascade;
 create schema "public";
 
-CREATE TABLE "products" (
-	"productId" serial NOT NULL,
-	"name" VARCHAR(255) NOT NULL,
-	"price" VARCHAR(255) NOT NULL,
-	"color" VARCHAR(255) NOT NULL,
-	"description" VARCHAR(255) NOT NULL,
-	"image" VARCHAR(255) NOT NULL,
-	CONSTRAINT "products_pk" PRIMARY KEY ("productId")
-) WITH (
-  OIDS=FALSE
-);
-
-
-
 CREATE TABLE "users" (
 	"userId" serial NOT NULL,
 	"firstName" VARCHAR(255) NOT NULL,
@@ -27,6 +13,16 @@ CREATE TABLE "users" (
 	"image" VARCHAR(255) NOT NULL,
 	"password" VARCHAR(255) NOT NULL,
 	CONSTRAINT "users_pk" PRIMARY KEY ("userId")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "sightWords" (
+	"word" VARCHAR(255) NOT NULL,
+	"wordId" serial NOT NULL,
+	CONSTRAINT "sightWords_pk" PRIMARY KEY ("wordId")
 ) WITH (
   OIDS=FALSE
 );

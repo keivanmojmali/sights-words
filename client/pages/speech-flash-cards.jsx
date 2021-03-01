@@ -6,8 +6,10 @@ export default class SpeechFlashCards extends React.Component{
     this.state = {
       words: [],
       currentWord: 'the',
+      pass: false,
     }
     this.checkWord = this.checkWord.bind(this)
+    this.currentCard = this.currentCard.bind(this)
     this.dictate = this.dictate.bind(this);
     this.microphone = document.querySelector('#microphone');
     window.SpeechRecognition = webkitSpeechRecognition || window.SpeechRecognition;
@@ -33,10 +35,40 @@ export default class SpeechFlashCards extends React.Component{
   }
   checkWord(speechToText) {
     if (speechToText === this.state.currentWord) {
-      console.log('yes!') //need to add effects here
+      this.setState({pass:true})
     } else {
       console.log('no!')
     }
+  }
+  currentCard() {
+    if(this.state.pass === false) {
+      return (
+        <div className="row mt-4">
+          <div className="col">
+            <div className="card">
+              <div className="card-body d-flex flex-column align-items-center">
+                <h5 className="card-title text-center display-2">The</h5>
+                <p className="card-text text-center">Press the microphone button below and speak the word above.</p>
+                <button className='fas fa-microphone' id='microphone'></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    return (
+      <div className="row mt-4 border border-success">
+        <div className="col">
+          <div className="card">
+            <div className="card-body d-flex flex-column align-items-center">
+              <h5 className="card-title text-center display-2">The</h5>
+              <p className="card-text text-center">Press the microphone button below and speak the word above.</p>
+              <button className='fas fa-microphone' id='microphone'></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
   render(){
       return (
@@ -51,17 +83,7 @@ export default class SpeechFlashCards extends React.Component{
               </div>
             </div>
           </div>
-          <div className="row mt-4">
-            <div className="col">
-              <div className="card">
-                  <div className="card-body d-flex flex-column align-items-center">
-                    <h5 className="card-title text-center display-2">The</h5>
-                    <p className="card-text text-center">Press the microphone button below and speak the word above.</p>
-                  <button className='fas fa-microphone' id='microphone'></button>
-                  </div>
-              </div>
-            </div>
-          </div>
+          {this.currentCard()}
         </div>
       )
   }
