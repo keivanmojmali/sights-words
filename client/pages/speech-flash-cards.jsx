@@ -11,7 +11,7 @@ export default class SpeechFlashCards extends React.Component{
     this.checkWord = this.checkWord.bind(this)
     this.currentCard = this.currentCard.bind(this)
     this.dictate = this.dictate.bind(this);
-    this.microphone = document.querySelector('#microphone');
+    this.microphone = document.querySelector('.fas fa-microphone');
     window.SpeechRecognition = webkitSpeechRecognition || window.SpeechRecognition;
     this.recognition = new SpeechRecognition();
     this.recognition.interimResults = true;
@@ -23,7 +23,7 @@ export default class SpeechFlashCards extends React.Component{
     .then(data=>this.setState({words:data}))
     .catch(err=>console.error(err))
 
-    microphone.addEventListener('click', () => {
+    this.microphone.addEventListener('click', () => {
       //Add sound play here
       this.dictate();
 
@@ -47,27 +47,26 @@ export default class SpeechFlashCards extends React.Component{
     }
   }
   currentCard() {
-    return;
     if(this.state.words === undefined) {
       return;
     }
-    const currentWord = this.state.words[this.state.currentIndex];
-    return (
-      <div className="row mt-4 border border-success">
-        <div className="col">
-          <div className="card">
-            <div className="card-body d-flex flex-column align-items-center">
-              <h5 className="card-title text-center display-2">{currentWord.word}</h5>
-              <p className="card-text text-center">Press the microphone button below and speak the word above.</p>
-              <button className='fas fa-microphone' id='microphone'></button>
+    return this.state.words.map((item)=> {
+      return (
+        <div key={item.wordId} className="row mt-4 border border-success">
+          <div className="col">
+            <div className="card">
+              <div className="card-body d-flex flex-column align-items-center">
+                <h5 className="card-title text-center display-2">{item.word}</h5>
+                <p className="card-text text-center">Press the microphone button below and speak the word above.</p>
+                <button className='fas fa-microphone' id={item.wordId}></button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    })
   }
   render(){
-    console.log(this.state)
       return (
         <div className="col">
           <div className="row mt-4">
