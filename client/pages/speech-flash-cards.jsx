@@ -6,6 +6,7 @@ export default class SpeechFlashCards extends React.Component{
     this.state = {
       words: [],
       currentIndex: 0,
+      correct: []
     }
     this.checkWord = this.checkWord.bind(this)
     this.currentCard = this.currentCard.bind(this)
@@ -40,8 +41,12 @@ export default class SpeechFlashCards extends React.Component{
     if (word === speechToText) {
       console.log('yah!')
       const correct = [...this.state.correct]
-      correct.push(wordId)
-      this.setState({correct})
+      if(correct.includes(wordId)) {
+        return;
+      } else {
+        correct.push(wordId)
+        this.setState({ correct })
+      }
     } else {
       console.log('no!')
     }
@@ -52,8 +57,12 @@ export default class SpeechFlashCards extends React.Component{
       return;
     }
     return this.state.words.map((item)=> {
+      let cardClass = 'row mt-4'
+      if(this.state.correct.includes(item.wordId)){
+        cardClass = 'row mt-4 border border-success'
+      }
       return (
-        <div id={item.wordId} key={item.wordId} className='row mt-4'>
+        <div id={item.wordId} key={item.wordId} className={cardClass}>
           <div className="col">
             <div className="card">
               <div className="card-body d-flex flex-column align-items-center">
@@ -68,6 +77,7 @@ export default class SpeechFlashCards extends React.Component{
     })
   }
   render(){
+    console.log(this.state.correct);
       return (
         <div className="col">
           <div className="row mt-4">
@@ -76,7 +86,7 @@ export default class SpeechFlashCards extends React.Component{
                 <h3>These Are Sight Words</h3>
                 <p>
                   Duis ut lorem felis. Nunc vulputate sit amet ex.
-          </p>
+              </p>
               </div>
             </div>
           </div>
