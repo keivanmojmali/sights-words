@@ -5,79 +5,79 @@ export default class SpeechFlashCards extends React.Component{
     super(props)
     this.state = {
       words: [],
-      currentWord: 'the',
-      pass: false,
+      currentIndex: 0,
+      correct: []
     }
     this.checkWord = this.checkWord.bind(this)
     this.currentCard = this.currentCard.bind(this)
     this.dictate = this.dictate.bind(this);
-    this.microphone = document.querySelector('#microphone');
     window.SpeechRecognition = webkitSpeechRecognition || window.SpeechRecognition;
     this.recognition = new SpeechRecognition();
     this.recognition.interimResults = true;
   }
   componentDidMount(){
 
+    this.recognition.addEventListener('onend',()=> {
+      this.recognition.stop();
+    })
+
     fetch('/store/getWords')
     .then(result=>result.json())
     .then(data=>this.setState({words:data}))
     .catch(err=>console.error(err))
-
-    microphone.addEventListener('click', () => {
-      //Add sound play here
-      this.dictate();
-
-    })
   }
-  dictate() {
+  dictate(word,wordId) {
     this.recognition.start();
     this.recognition.onresult = (event) => {
     const speechToText = Array.from(event.results)
     .map(result =>result[0])
     .map(result => result.transcript)
     .join(' ');
-    this.checkWord(speechToText);
+    this.checkWord(word,speechToText,wordId);
     }
   }
-  checkWord(speechToText) {
-    if (speechToText === this.state.currentWord) {
-      this.setState({pass:true})
+  checkWord(word,speechToText,wordId) {
+    console.log(word,speechToText,wordId)
+    if (word === speechToText) {
+      console.log('yah!')
+      const correct = [...this.state.correct]
+      if(correct.includes(wordId)) {
+        return;
+      } else {
+        correct.push(wordId)
+        this.setState({ correct })
+      }
     } else {
       console.log('no!')
     }
   }
   currentCard() {
-    if(this.state.pass === false) {
+
+    if(this.state.words === undefined) {
+      return;
+    }
+    return this.state.words.map((item)=> {
+      let cardClass = 'row mt-4'
+      if(this.state.correct.includes(item.wordId)){
+        cardClass = 'row mt-4 border border-success'
+      }
       return (
-        <div className="row mt-4">
+        <div id={item.wordId} key={item.wordId} className={cardClass}>
           <div className="col">
             <div className="card">
               <div className="card-body d-flex flex-column align-items-center">
-                <h5 className="card-title text-center display-2">The</h5>
+                <h5 className="card-title text-center display-2">{item.word}</h5>
                 <p className="card-text text-center">Press the microphone button below and speak the word above.</p>
-                <button className='fas fa-microphone' id='microphone'></button>
+                <button className='fas fa-microphone' onClick={()=>{this.dictate(item.word,item.wordId)}}></button>
               </div>
             </div>
           </div>
         </div>
       )
-    }
-    return (
-      <div className="row mt-4 border border-success">
-        <div className="col">
-          <div className="card">
-            <div className="card-body d-flex flex-column align-items-center">
-              <h5 className="card-title text-center display-2">The</h5>
-              <p className="card-text text-center">Press the microphone button below and speak the word above.</p>
-              <button className='fas fa-microphone' id='microphone'></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
+    })
   }
   render(){
-    console.log(this.state)
+    console.log(this.state.correct);
       return (
         <div className="col">
           <div className="row mt-4">
@@ -86,7 +86,7 @@ export default class SpeechFlashCards extends React.Component{
                 <h3>These Are Sight Words</h3>
                 <p>
                   Duis ut lorem felis. Nunc vulputate sit amet ex.
-          </p>
+              </p>
               </div>
             </div>
           </div>
