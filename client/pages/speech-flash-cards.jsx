@@ -5,7 +5,7 @@ export default class SpeechFlashCards extends React.Component{
     super(props)
     this.state = {
       words: [],
-      currentWord: 'the',
+      currentIndex: 0,
       pass: false,
     }
     this.checkWord = this.checkWord.bind(this)
@@ -47,27 +47,17 @@ export default class SpeechFlashCards extends React.Component{
     }
   }
   currentCard() {
-    if(this.state.pass === false) {
-      return (
-        <div className="row mt-4">
-          <div className="col">
-            <div className="card">
-              <div className="card-body d-flex flex-column align-items-center">
-                <h5 className="card-title text-center display-2">The</h5>
-                <p className="card-text text-center">Press the microphone button below and speak the word above.</p>
-                <button className='fas fa-microphone' id='microphone'></button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )
+    return;
+    if(this.state.words === undefined) {
+      return;
     }
+    const currentWord = this.state.words[this.state.currentIndex];
     return (
       <div className="row mt-4 border border-success">
         <div className="col">
           <div className="card">
             <div className="card-body d-flex flex-column align-items-center">
-              <h5 className="card-title text-center display-2">The</h5>
+              <h5 className="card-title text-center display-2">{currentWord.word}</h5>
               <p className="card-text text-center">Press the microphone button below and speak the word above.</p>
               <button className='fas fa-microphone' id='microphone'></button>
             </div>
