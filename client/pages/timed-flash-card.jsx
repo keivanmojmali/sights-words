@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactCardFlip from 'react-card-flip';
+import FrontComponent from '../components/front-component'
 
 export default class TimedFlashCard extends React.Component {
   constructor(props) {
@@ -7,8 +9,11 @@ export default class TimedFlashCard extends React.Component {
         words: [],
         currentIndex: 0,
         correct: [],
+        isFlipped: false
     };
     this.checkWord = this.checkWord.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.flashCardStart = this.flashCardStart.bind(this)
     this.currentCard = this.currentCard.bind(this)
     this.dictate = this.dictate.bind(this);
     window.SpeechRecognition = webkitSpeechRecognition || window.SpeechRecognition;
@@ -75,12 +80,30 @@ export default class TimedFlashCard extends React.Component {
       </div>
     )
   }
+  handleClick(){
+    e.preventdefault();
+    this.setState(prevState=>({isFlipped: !prevState.isFlipped}));
+  }
+  flashCardStart(){
+    return (
+      <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical">
+        <FrontComponent>
+
+        </FrontComponent>
+
+        <YOUR_BACK_COMPONENT>
+          This is the back of the card.
+          {/* <button onClick={this.handleClick}>Click to flip</button> */}
+        </YOUR_BACK_COMPONENT>
+      </ReactCardFlip>
+    )
+  }
   render() {
     console.log(this.state)
     return (
       <div className='col'>
         <div className="row">
-          {this.currentCard()}
+          {this.flashCardStart()}
         </div>
       </div>
     )
