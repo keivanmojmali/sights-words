@@ -2,6 +2,7 @@ import React from 'react'
 import NavBar from '../components/nav-bar'
 import Welcome from './welcome'
 import SpeechFlashCards from './speech-flash-cards'
+import TimedFlashCard from './timed-flash-card';
 
 export default class App extends React.Component {
   constructor(props){
@@ -27,7 +28,7 @@ export default class App extends React.Component {
           <NavBar />
         </div>
         <div className="row f-grow">
-          <SpeechFlashCards />
+          <TimedFlashCard />
         </div>
       </div>
     )
