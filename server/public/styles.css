@@ -1,3 +1,9 @@
 .f-grow {
   flex-grow: 1;
 }
+
+.success {
+  background-color: green;
+  color: white;
+
+}
