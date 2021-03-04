@@ -19,29 +19,28 @@ export default class SpeechFlashCards extends React.Component{
   }
   componentDidMount(){
 
-    this.recognition.addEventListener('onend',()=> {
-      this.recognition.stop();
-    })
-
     fetch('/store/getWords')
     .then(result=>result.json())
     .then(data=>this.setState({words:data}))
     .catch(err=>console.error(err))
   }
   dictate(word,wordId) {
+    if(this.recognition)
     this.recognition.start();
+    console.log('started')
     this.recognition.onresult = (event) => {
     const speechToText = Array.from(event.results)
     .map(result =>result[0])
     .map(result => result.transcript)
     .join(' ');
     this.checkWord(word,speechToText,wordId);
+    this.recognition.stop();
     }
   }
   checkWord(word,speechToText,wordId) {
     console.log(word,speechToText,wordId)
+    //add in correct sound in here
     if (word === speechToText) {
-      console.log('yah!')
       const correct = [...this.state.correct]
       if(correct.includes(wordId)) {
         return;
@@ -50,13 +49,7 @@ export default class SpeechFlashCards extends React.Component{
         this.setState({ correct })
       }
     } else {
-      const incorrect = [...this.state.correct]
-      if (incorrect.includes(wordId)) {
-        return;
-      } else {
-        incorrect.push(wordId)
-        this.setState({ incorrect })
-      }
+      //Add in incorrect sound here
     }
   }
   currentCard() {
@@ -70,7 +63,7 @@ export default class SpeechFlashCards extends React.Component{
         cardClass = 'card success'
       }
       if(this.state.incorrect.includes(item.wordId)) {
-        cardClass = 'card jello'
+        cardClass = 'card border border-primary'
       }
       return (
         <div id={item.wordId} key={item.wordId} className='row mt-4'>
@@ -88,7 +81,7 @@ export default class SpeechFlashCards extends React.Component{
     })
   }
   render(){
-
+    console.log(this.state)
       return (
         <div className="col">
           <div className="row mt-4">
