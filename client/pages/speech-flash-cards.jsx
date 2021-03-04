@@ -25,7 +25,7 @@ export default class SpeechFlashCards extends React.Component{
     .catch(err=>console.error(err))
   }
   dictate(word,wordId) {
-    if(this.recognition)
+
     this.recognition.start();
     console.log('started')
     this.recognition.onresult = (event) => {
