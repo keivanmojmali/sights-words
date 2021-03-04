@@ -1,4 +1,5 @@
 import React from 'react';
+import { jello } from 'react-animations'
 
 export default class SpeechFlashCards extends React.Component{
   constructor(props){
@@ -6,7 +7,8 @@ export default class SpeechFlashCards extends React.Component{
     this.state = {
       words: [],
       currentIndex: 0,
-      correct: []
+      correct: [],
+      incorrect: []
     }
     this.checkWord = this.checkWord.bind(this)
     this.currentCard = this.currentCard.bind(this)
@@ -48,7 +50,13 @@ export default class SpeechFlashCards extends React.Component{
         this.setState({ correct })
       }
     } else {
-      console.log('no!')
+      const incorrect = [...this.state.correct]
+      if (incorrect.includes(wordId)) {
+        return;
+      } else {
+        incorrect.push(wordId)
+        this.setState({ incorrect })
+      }
     }
   }
   currentCard() {
@@ -60,6 +68,9 @@ export default class SpeechFlashCards extends React.Component{
       let cardClass = 'card'
       if(this.state.correct.includes(item.wordId)){
         cardClass = 'card success'
+      }
+      if(this.state.incorrect.includes(item.wordId)) {
+        cardClass = 'card jello'
       }
       return (
         <div id={item.wordId} key={item.wordId} className='row mt-4'>
@@ -77,7 +88,7 @@ export default class SpeechFlashCards extends React.Component{
     })
   }
   render(){
-    console.log(this.state.correct);
+
       return (
         <div className="col">
           <div className="row mt-4">
