@@ -7,6 +7,7 @@ export default class TimedFlashCard extends React.Component {
         words: [],
         currentIndex: 0,
         correct: [],
+        ready: false
     };
     this.checkWord = this.checkWord.bind(this)
     this.currentCard = this.currentCard.bind(this)
@@ -14,6 +15,8 @@ export default class TimedFlashCard extends React.Component {
     window.SpeechRecognition = webkitSpeechRecognition || window.SpeechRecognition;
     this.recognition = new SpeechRecognition();
     this.recognition.interimResults = true;
+    this.handleClick = this.handleClick.bind(this)
+    this.off = this.off.bind(this)
   }
   componentDidMount() {
     const clearInterval = setInterval(()=>{
@@ -26,15 +29,12 @@ export default class TimedFlashCard extends React.Component {
       .catch(err => console.error(err))
   }
   dictate(word, wordId) {
-    this.recognition.start();
-    console.log('started')
     this.recognition.onresult = (event) => {
       const speechToText = Array.from(event.results)
         .map(result => result[0])
         .map(result => result.transcript)
         .join(' ');
       this.checkWord(word, speechToText, wordId);
-      this.recognition.stop();
     }
   }
   checkWord(word, speechToText, wordId) {
@@ -53,8 +53,18 @@ export default class TimedFlashCard extends React.Component {
   }
   currentCard(){
 
-    if (this.state.words.length === 0) {
-      return;
+    if (this.state.ready === false) {
+      return (
+        <div className='row mt-4'>
+          <div className="col">
+            <div className='card'>
+              <div className="card-body d-flex flex-column align-items-center">
+                <h5 className="card-title text-center display-2">Press Start</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
     }
     let currentWord = this.state.words[this.state.currentIndex]
     let cardClass = 'card';
@@ -75,12 +85,25 @@ export default class TimedFlashCard extends React.Component {
       </div>
     )
   }
+  handleClick(){
+    event.preventDefault();
+    this.setState({ready:true})
+    this.recognition.start();
+    const intervalId = setInterval(()=>{
+      this.setState({ready:false});
+      this.off()
+    },5000)
+  }
+  off(){
+    this.recognition.stop();
+  }
   render() {
-    console.log(this.state)
     return (
       <div className='col'>
-        <div className="row">
+        <div className="row d-flex flex-column align-items-center justify-content-center">
           {this.currentCard()}
+          <h2 className='mt-4'>Press Button When ready</h2>
+          <button onClick={this.handleClick} className='btn btn-primary'>Start</button>
         </div>
       </div>
     )
