@@ -15,6 +15,7 @@ export default class TimedFlashCard extends React.Component {
     window.SpeechRecognition = webkitSpeechRecognition || window.SpeechRecognition;
     this.recognition = new SpeechRecognition();
     this.recognition.interimResults = true;
+    this.handleClick = this.handleClick.bind(this)
   }
   componentDidMount() {
     const clearInterval = setInterval(()=>{
@@ -54,8 +55,19 @@ export default class TimedFlashCard extends React.Component {
   }
   currentCard(){
 
-    if (this.state.words.length === 0) {
-      return;
+    if (this.state.ready === false) {
+      return (
+        <div className='row mt-4'>
+          <div className="col">
+            <div className='card'>
+              <div className="card-body d-flex flex-column align-items-center">
+                <h5 className="card-title text-center display-2">Press Start</h5>
+                <p className="card-text text-center">Press the microphone button below and speak the word above.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
     }
     let currentWord = this.state.words[this.state.currentIndex]
     let cardClass = 'card';
@@ -76,7 +88,8 @@ export default class TimedFlashCard extends React.Component {
       </div>
     )
   }
-  handleclick(){
+  handleClick(){
+    event.preventDefault();
     this.setState({ready:true})
   }
   render() {
@@ -86,7 +99,7 @@ export default class TimedFlashCard extends React.Component {
         <div className="row d-flex flex-column align-items-center justify-content-center">
           {this.currentCard()}
           <h2 className='mt-4'>Press Button When ready</h2>
-          <button onClick={this.handleclick} className='btn btn-primary'>Start</button>
+          <button onClick={this.handleClick} className='btn btn-primary'>Start</button>
         </div>
       </div>
     )
