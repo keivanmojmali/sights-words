@@ -16,6 +16,7 @@ export default class TimedFlashCard extends React.Component {
     this.recognition = new SpeechRecognition();
     this.recognition.interimResults = true;
     this.handleClick = this.handleClick.bind(this)
+    this.off = this.off.bind(this)
   }
   componentDidMount() {
     const clearInterval = setInterval(()=>{
@@ -28,15 +29,12 @@ export default class TimedFlashCard extends React.Component {
       .catch(err => console.error(err))
   }
   dictate(word, wordId) {
-    this.recognition.start();
-    console.log('started')
     this.recognition.onresult = (event) => {
       const speechToText = Array.from(event.results)
         .map(result => result[0])
         .map(result => result.transcript)
         .join(' ');
       this.checkWord(word, speechToText, wordId);
-      this.recognition.stop();
     }
   }
   checkWord(word, speechToText, wordId) {
@@ -62,7 +60,6 @@ export default class TimedFlashCard extends React.Component {
             <div className='card'>
               <div className="card-body d-flex flex-column align-items-center">
                 <h5 className="card-title text-center display-2">Press Start</h5>
-                <p className="card-text text-center">Press the microphone button below and speak the word above.</p>
               </div>
             </div>
           </div>
@@ -91,9 +88,16 @@ export default class TimedFlashCard extends React.Component {
   handleClick(){
     event.preventDefault();
     this.setState({ready:true})
+    this.recognition.start();
+    const intervalId = setInterval(()=>{
+      this.setState({ready:false});
+      this.off()
+    },5000)
+  }
+  off(){
+    this.recognition.stop();
   }
   render() {
-    console.log(this.state)
     return (
       <div className='col'>
         <div className="row d-flex flex-column align-items-center justify-content-center">
