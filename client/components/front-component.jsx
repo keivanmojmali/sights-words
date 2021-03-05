@@ -1,3 +1,5 @@
+import React from 'react'
+
 export default class FrontComponent extends React.Component {
   constructor(props){
     super(props)
@@ -9,7 +11,7 @@ export default class FrontComponent extends React.Component {
           <div className='card'>
             <div className="card-body d-flex flex-column align-items-center">
               <h2>Press the Start Button</h2>
-              <button onClick={this.handleClick}>Click to flip</button>
+              <button onClick={this.props.handleClick}>Click to flip</button>
             </div>
           </div>
         </div>
