@@ -1,7 +1,4 @@
 import React from 'react';
-import ReactCardFlip from 'react-card-flip';
-import FrontComponent from '../components/front-component'
-import BackComponent from '../components/back-component'
 
 export default class TimedFlashCard extends React.Component {
   constructor(props) {
@@ -10,18 +7,14 @@ export default class TimedFlashCard extends React.Component {
         words: [],
         currentIndex: 0,
         correct: [],
-        isFlipped: false
+        ready: false
     };
     this.checkWord = this.checkWord.bind(this)
-    this.handleClick = this.handleClick.bind(this)
-    this.flashCardStart = this.flashCardStart.bind(this)
-    // this.currentCard = this.currentCard.bind(this)
+    this.currentCard = this.currentCard.bind(this)
     this.dictate = this.dictate.bind(this);
     window.SpeechRecognition = webkitSpeechRecognition || window.SpeechRecognition;
     this.recognition = new SpeechRecognition();
     this.recognition.interimResults = true;
-    //Test var
-    this.currentWord = this.state.words[this.state.currentIndex]
   }
   componentDidMount() {
     const clearInterval = setInterval(()=>{
@@ -59,58 +52,41 @@ export default class TimedFlashCard extends React.Component {
       //Add in incorrect sound here
     }
   }
-  // currentCard(){
+  currentCard(){
 
-  //   if (this.state.words.length === 0) {
-  //     return;
-  //   }
-  //   let currentWord = this.state.words[this.state.currentIndex]
-  //   let cardClass = 'card';
-  //   if(this.state.correct.includes(currentWord.wordId)) {
-  //     cardClass = 'card success'
-  //   }
-  //   return (
-  //     <div id={currentWord.wordId} key={currentWord.wordId} className='row mt-4'>
-  //       <div className="col">
-  //         <div className={cardClass}>
-  //           <div className="card-body d-flex flex-column align-items-center">
-  //             <h5 className="card-title text-center display-2">{currentWord.word}</h5>
-  //             <p className="card-text text-center">Press the microphone button below and speak the word above.</p>
-  //             <button className='fas fa-microphone' onClick={() => { this.dictate(currentWord.word, currentWord.wordId) }}></button>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   )
-  // }
-  handleClick(){
-    e.preventdefault();
-    this.setState(prevState=>({isFlipped: !prevState.isFlipped}));
-  }
-  flashCardStart(){
+    if (this.state.words.length === 0) {
+      return;
+    }
+    let currentWord = this.state.words[this.state.currentIndex]
+    let cardClass = 'card';
+    if(this.state.correct.includes(currentWord.wordId)) {
+      cardClass = 'card success'
+    }
     return (
-      <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical"
-        currentWord={this.currentWord} dictate={this.dictate}
-        handleClick={this.handleClick}>
-        <FrontComponent
-          onClick={this.handleClick}
-        >
-        </FrontComponent>
-
-        <BackComponent
-          currentWord={this.currentWord} dictate={this.dictate}
-          handleClick={this.handleClick}>
-
-        </BackComponent>
-      </ReactCardFlip>
+      <div id={currentWord.wordId} key={currentWord.wordId} className='row mt-4'>
+        <div className="col">
+          <div className={cardClass}>
+            <div className="card-body d-flex flex-column align-items-center">
+              <h5 className="card-title text-center display-2">{currentWord.word}</h5>
+              <p className="card-text text-center">Press the microphone button below and speak the word above.</p>
+              <button className='fas fa-microphone' onClick={() => { this.dictate(currentWord.word, currentWord.wordId) }}></button>
+            </div>
+          </div>
+        </div>
+      </div>
     )
+  }
+  handleclick(){
+    this.setState({ready:true})
   }
   render() {
     console.log(this.state)
     return (
       <div className='col'>
-        <div className="row">
-          {this.flashCardStart()}
+        <div className="row d-flex flex-column align-items-center justify-content-center">
+          {this.currentCard()}
+          <h2 className='mt-4'>Press Button When ready</h2>
+          <button onClick={this.handleclick} className='btn btn-primary'>Start</button>
         </div>
       </div>
     )
