@@ -4,9 +4,10 @@ export default class PressSightWord extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      words: [],
+      sentences: [],
     };
     this.currentSentence = this.currentSentence.bind(this);
+    this.currentWord = this.currentWord.bind(this);
   }
   componentDidMount(){
     fetch('/store/getWords')
@@ -14,7 +15,14 @@ export default class PressSightWord extends React.Component{
       .then(data => this.setState({ words: data }))
       .catch(err => console.error(err))
   }
-  currentSentence(){
+  currentSentence(sentenceArray){
+    return sentenceArray.map((item,index)=>{
+      return (
+        <button className='btn'>{sentenceArray.word}</button>
+      )
+    })
+  }
+  currentWord(){
     return(
       <>
       <div className='row'>
@@ -33,7 +41,7 @@ export default class PressSightWord extends React.Component{
   render(){
     return(
       <div className='col'>
-        {this.currentSentence()}
+        {this.currentWord()}
       </div>
     )
   }
