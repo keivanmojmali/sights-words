@@ -3,6 +3,7 @@ import NavBar from '../components/nav-bar'
 import Welcome from './welcome'
 import SpeechFlashCards from './speech-flash-cards'
 import TimedFlashCard from './timed-flash-card';
+import PressSightWord from './press-sight-word';
 
 export default class App extends React.Component {
   constructor(props){
@@ -28,7 +29,7 @@ export default class App extends React.Component {
           <NavBar />
         </div>
         <div className="row f-grow">
-          <TimedFlashCard />
+          <PressSightWord />
         </div>
       </div>
     )
