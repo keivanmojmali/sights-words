@@ -21,7 +21,7 @@ export default class PressSightWord extends React.Component{
   currentSentence(sentenceArray){
     return sentenceArray.map((item,index)=>{
       return (
-        <button onClick={this.handleClick()} className='btn'>{sentenceArray.sentence}</button>
+        <button onClick={()=>{this.handleclick(item.word)}} className='btn'>{item.sentences}</button>
       )
     })
   }
@@ -35,7 +35,7 @@ export default class PressSightWord extends React.Component{
         </div>
       </div>
       <div className="row">
-        <div className="col">
+        <div className="col d-flex justify-content-center align-items-center">
           {this.currentSentence()}
         </div>
       </div>
