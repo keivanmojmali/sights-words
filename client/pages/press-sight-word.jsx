@@ -18,8 +18,9 @@ export default class PressSightWord extends React.Component{
   componentDidMount(){
     // ADD THE FETCH FOR THE SENTENCES HERE
   }
-  currentSentence(sentenceArray){
-    return sentenceArray.map((item,index)=>{
+  currentSentence(currentSentence){
+
+    return currentSentence.sentences.map((item,index)=>{
       return (
         <button onClick={()=>{this.handleclick(item.word)}} className='btn'>{item.sentences}</button>
       )
@@ -36,7 +37,7 @@ export default class PressSightWord extends React.Component{
       </div>
       <div className="row">
         <div className="col d-flex justify-content-center align-items-center">
-          {this.currentSentence()}
+          {this.currentSentence(currentSentence)}
         </div>
       </div>
       </>
