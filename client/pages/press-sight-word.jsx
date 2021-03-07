@@ -18,16 +18,16 @@ export default class PressSightWord extends React.Component{
   componentDidMount(){
     // ADD THE FETCH FOR THE SENTENCES HERE
   }
-  currentSentence(currentSentence){
-
+  currentSentence(){
+    const currentSentence = this.state.sentences[this.state.currentIndex];
+    const currentWord = currentSentence.word;
     return currentSentence.sentences.map((item,index)=>{
       return (
-        <button onClick={()=>{this.handleclick(item.word)}} className='btn'>{item.sentences}</button>
+        <button onClick={()=>{this.handleclick(currentWord)}} className='btn'>{item}</button>
       )
     })
   }
   currentWord(){
-    const currentSentence = this.state.sentences[this.state.currentIndex];
     return(
       <>
       <div className='row'>
@@ -37,7 +37,7 @@ export default class PressSightWord extends React.Component{
       </div>
       <div className="row">
         <div className="col d-flex justify-content-center align-items-center">
-          {this.currentSentence(currentSentence)}
+          {this.currentSentence()}
         </div>
       </div>
       </>
