@@ -39,7 +39,7 @@ export default class PressSightWord extends React.Component{
     return(
       <>
       <div className='row'>
-        <div className="col">
+        <div className="col d-flex align-items-center justify-content-center">
           <h1>Press the Sight Word Below</h1>
         </div>
       </div>
