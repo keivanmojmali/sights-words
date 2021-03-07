@@ -6,14 +6,22 @@ export default class PressSightWord extends React.Component{
     this.state = {
       sentences: [
         {
-          word: the,
-          sentences: [Please, get, the, door],
+          word: 'the',
+          sentences: ['Please', 'get', 'the', 'door'],
         }
       ],
       currentIndex: 0,
     };
     this.currentSentence = this.currentSentence.bind(this);
     this.currentWord = this.currentWord.bind(this);
+    this.handleclick = this.handleclick.bind(this)
+  }
+  handleclick(currentWord,item){
+    if(currentWord === item) {
+      console.log('yess')
+    } else {
+      console.log('nooo')
+    }
   }
   componentDidMount(){
     // ADD THE FETCH FOR THE SENTENCES HERE
@@ -23,7 +31,7 @@ export default class PressSightWord extends React.Component{
     const currentWord = currentSentence.word;
     return currentSentence.sentences.map((item,index)=>{
       return (
-        <button onClick={()=>{this.handleclick(currentWord)}} className='btn'>{item}</button>
+        <button key={index} onClick={()=>{this.handleclick(currentWord,item)}} className='btn'>{item}</button>
       )
     })
   }
