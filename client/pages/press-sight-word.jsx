@@ -32,7 +32,7 @@ export default class PressSightWord extends React.Component{
     return currentSentence.sentences.map((item,index)=>{
       return (
         <button key={index} onClick={()=>{this.handleclick(currentWord,item)}} className='btn'>{item}</button>
-      )
+            )
     })
   }
   currentWord(){
@@ -40,11 +40,22 @@ export default class PressSightWord extends React.Component{
       <>
       <div className='row'>
         <div className="col d-flex align-items-center justify-content-center">
+
+    const currentSentence = this.state.sentences[this.state.currentIndex];
+    return(
+      <>
+      <div className='row'>
+        <div className="col">
+
           <h1>Press the Sight Word Below</h1>
         </div>
       </div>
       <div className="row">
+
         <div className="col d-flex justify-content-center align-items-center">
+
+        <div className="col">
+
           {this.currentSentence()}
         </div>
       </div>
